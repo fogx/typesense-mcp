@@ -1,0 +1,34 @@
+# Typesense MCP Configuration
+# Copy this file to typesense-mcp.toml and fill in your values.
+#
+# All environments (production, staging, test) live on the same cluster
+# as different collection prefixes (e.g. creators_production, creators_staging).
+#
+# Defaults: port = 443, protocol = "https", readonly = false,
+#           connection_timeout = 5, max_search_results = 250
+# Only add protocol = "http" for local instances.
+#
+# Readonly will prevent all writing endpoints, so you can use your admin key without fear of breaking something. Alternatively, you can create keys matching the permissions you want the source to have
+#
+# collections: Required. Glob patterns controlling which collections this source
+# can access. Use trailing * as a wildcard (e.g. "creators_production*").
+# No patterns = no access.
+
+[[sources]]
+id = "production"
+host = ""
+api_key = ""  # search-only key
+readonly = true
+collections = ["creators_production*", "creator_content_production*"]
+
+[[sources]]
+id = "staging"
+host = ""
+api_key = ""  # admin key
+collections = ["creators_staging*", "creator_content_staging*"]
+
+[[sources]]
+id = "local-snaplet"
+host = ""
+api_key = ""  # admin key
+collections = ["creators_snaplet*", "creators_test*", "creator_content_test*"]
